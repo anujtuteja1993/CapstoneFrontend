@@ -1,12 +1,10 @@
 import React from 'react'
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import Slider from '../components/Slider';
-import Game from '../components/Game';
 
 
 import { StarIcon } from '@heroicons/react/20/solid'
-import { RadioGroup } from '@headlessui/react'
 
 const product = {
   price: '$192',
@@ -18,9 +16,6 @@ const reviews = { href: '#', average: 4, totalCount: 117 }
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
-
-
-
 
 
 const GameDetails = () => {
@@ -41,7 +36,7 @@ const GameDetails = () => {
     Promise.all([fetch(fetchGameDetailsURL), fetch(fetchGameScreenshotsURL), fetch(fetchGameDescriptionURL)])
     .then(([resp1, resp2, resp3]) => Promise.all([resp1.json(), resp2.json(), resp3.json()]))
     .then(([data1, data2, data3]) => {setGame(data1.data[0]); setGameScreenshots(data2.data); setGameDescription(data3.description_raw)})
-  }, [])
+  }, [fetchGameDetailsURL, fetchGameScreenshotsURL, fetchGameDescriptionURL])
 
   console.log(gameDescription);
 
