@@ -15,6 +15,7 @@ const NavbarTest = () => {
         <Link to='/'>
       <img src={logo} alt="logo" className="w-20 h-20"/>
         </Link>
+        <input type='text' placeholder='Search' className='bg-transparent border-b border-gray-600 focus:outline-none focus:border-gray-300'/>
       <ul className='hidden md:flex'>
         <li className='p-4'>Home</li>
         <li className='p-4'>Browse Games</li>

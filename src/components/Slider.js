@@ -74,13 +74,10 @@ const Slider = (imagesProp) => {
                     custom={direction}
                 />
             </AnimatePresence>
-            {/* <button className='prevButton sliderButton' onClick={prevStep}>
-                ◀
-            </button> */}
-            <button className='p-5 aspect-square rounded-full bg-[#28313B] border-none cursor-pointer text-center text-white absolute top-[45%] left-[5px] opacity-20 hover:opacity-75' onClick={prevStep}>
+            <button className='lg:p-5 sm:p-2 aspect-square rounded-full bg-[#28313B] border-none cursor-pointer text-center text-white lg:text-xl absolute top-[45%] left-[5px] opacity-20 hover:opacity-75' onClick={prevStep}>
                 ◀
             </button>
-            <button className='p-5 aspect-square rounded-full bg-[#28313B] border-none cursor-pointer text-center text-white absolute top-[45%] right-[5px] opacity-20 hover:opacity-75' onClick={nextStep}>
+            <button className='lg:p-5 sm:p-2 aspect-square rounded-full bg-[#28313B] border-none cursor-pointer text-center text-white lg:text-xl absolute top-[45%] right-[5px] opacity-20 hover:opacity-75' onClick={nextStep}>
                 ▶
             </button>
         </>

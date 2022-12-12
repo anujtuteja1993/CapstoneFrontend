@@ -10,7 +10,6 @@ export const AppRoutes = (props) => {
 
     <Routes>
         <Route exact path='/' element={<Home {...props} />} />
-        
         <Route exact path='/games/:id/' element={<GameDetails {...props} />} />
         <Route exact path='/games' element={<Games {...props} />} />
         <Route exact path='/test' element={<Test {...props} />} />
