@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import Slider from '../components/Slider';
-import { StarIcon } from '@heroicons/react/20/solid'
+import { StarIcon } from '@heroicons/react/20/solid';
+import {GameContext} from '../contexts/GameContext';
 
 const product = {
   price: '$192',
@@ -23,6 +24,12 @@ const GameDetails = () => {
   const [gameDescription, setGameDescription] = useState();
   const [gamePlatforms, setGamePlatforms] = useState();
 
+  const {setGamesInCart} = useContext(GameContext);
+
+
+  function addGametoCart() {
+    setGamesInCart(prev => [...prev, id]);
+  }   
 
 
   const fetchGameDetailsURL = "http://localhost:8000/games/fetchGameByID?game_id=" + id;
@@ -56,6 +63,14 @@ const GameDetails = () => {
       gamePlatformString += gamePlatforms[i].platform_name + ", ";
     }
   }
+
+  let cartItems = {
+    game_id: id,
+    game_name: game?.game_name,
+    game_price: product.price
+  }
+
+  console.log(cartItems);
 
   return (
     <div className="flex flex-col">
@@ -101,6 +116,7 @@ const GameDetails = () => {
               <button
                 type="submit"
                 className="mt-10 flex w-80 items-center justify-center rounded-md border bg-gray py-3 px-8 text-base font-medium text-white hover:bg-[#5d6063] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 shadow-sm"
+                onClick={addGametoCart}
               >
                 Add to cart
               </button>

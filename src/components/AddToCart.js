@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Cart() {
+function AddToCart() {
   // Use the useState hook to manage the state of the cart items
   const [cartItems, setCartItems] = useState([]);
 
@@ -42,4 +42,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+export default AddToCart;
