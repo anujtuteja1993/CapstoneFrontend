@@ -2,8 +2,6 @@ import React from 'react'
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import Slider from '../components/Slider';
-
-
 import { StarIcon } from '@heroicons/react/20/solid'
 
 const product = {
@@ -23,20 +21,23 @@ const GameDetails = () => {
   const [game, setGame] = useState();
   const [gameScreenshotDetails, setGameScreenshots] = useState();
   const [gameDescription, setGameDescription] = useState();
+  const [gamePlatforms, setGamePlatforms] = useState();
 
 
 
   const fetchGameDetailsURL = "http://localhost:8000/games/fetchGameByID?game_id=" + id;
   const fetchGameScreenshotsURL = "http://localhost:8000/games/fetchGameScreenshotByID?game_id=" + id;
   const fetchGameDescriptionURL = "https://api.rawg.io/api/games/" + id + "?key=f2b65746f0874d129d3550dd301e2b74"
+  const fetchGamePlatformsURL = "http://localhost:8000/games/getGamePlatformDetailsByID?game_id=" + id;
+
   console.log(fetchGameDescriptionURL);
 
 
   useEffect(() => {
-    Promise.all([fetch(fetchGameDetailsURL), fetch(fetchGameScreenshotsURL), fetch(fetchGameDescriptionURL)])
-      .then(([resp1, resp2, resp3]) => Promise.all([resp1.json(), resp2.json(), resp3.json()]))
-      .then(([data1, data2, data3]) => { setGame(data1.data[0]); setGameScreenshots(data2.data); setGameDescription(data3.description_raw) })
-  }, [fetchGameDetailsURL, fetchGameScreenshotsURL, fetchGameDescriptionURL])
+    Promise.all([fetch(fetchGameDetailsURL), fetch(fetchGameScreenshotsURL), fetch(fetchGameDescriptionURL), fetch(fetchGamePlatformsURL)])
+      .then(([resp1, resp2, resp3, resp4]) => Promise.all([resp1.json(), resp2.json(), resp3.json(), resp4.json()]))
+      .then(([data1, data2, data3, data4]) => { setGame(data1.data[0]); setGameScreenshots(data2.data); setGameDescription(data3.description_raw); setGamePlatforms(data4.data) })
+  }, [fetchGameDetailsURL, fetchGameScreenshotsURL, fetchGameDescriptionURL, fetchGamePlatformsURL])
 
   console.log(gameDescription);
 
@@ -45,8 +46,16 @@ const GameDetails = () => {
     gameScreenshotsArray.push(item.image)
   });
 
-  console.log(gameScreenshotsArray);
+  let gamePlatformString = "";
 
+  for (let i = 0; i < gamePlatforms?.length; i++) {
+
+    if (i === gamePlatforms.length - 1)
+      gamePlatformString += gamePlatforms[i].platform_name;
+    else {
+      gamePlatformString += gamePlatforms[i].platform_name + ", ";
+    }
+  }
 
   return (
     <div className="flex flex-col">
@@ -58,11 +67,11 @@ const GameDetails = () => {
       <div>
         <div className="mx-auto max-w-9xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24 rounded-xl bg-[#202121]">
           <div className="lg:col-span-2 lg:pr-8">
-            <h1 className="lg:text-6xl font-bold tracking-tight text-white sm:text-4xl">{game?.game_name}</h1>
+            <h1 className="lg:text-6xl font-bold tracking-tight text-white text-4xl">{game?.game_name}</h1>
           </div>
 
           {/* Options */}
-          <div className="mt-4 lg:row-span-3 lg:mt-0 bg-[#282929] shadow rounded-xl border-black border-1 p-5">
+          <div className="relative mt-4 lg:row-span-3 lg:mt-0 bg-[#282929] shadow rounded-xl border-black border-1 p-5">
             <h2 className="sr-only">Product information</h2>
             <p className="text-3xl tracking-tight text-white p-3">{product.price}</p>
             {/* Reviews */}
@@ -86,7 +95,8 @@ const GameDetails = () => {
                 </a>
               </div>
             </div>
-            <div className="flex p-10 justify-center text-white">Platforms Placeholder</div>
+            <div className="flex flex-col py-5 px-3 justify-center text-white"><p className="font-bold">Platforms:</p>
+              <span className="flex">{gamePlatformString}</span></div>
             <div className="px-3 mt-6 flex items-center justify-center">
               <button
                 type="submit"
