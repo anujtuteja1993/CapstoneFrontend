@@ -34,8 +34,8 @@ const GameDetails = () => {
 
   useEffect(() => {
     Promise.all([fetch(fetchGameDetailsURL), fetch(fetchGameScreenshotsURL), fetch(fetchGameDescriptionURL)])
-    .then(([resp1, resp2, resp3]) => Promise.all([resp1.json(), resp2.json(), resp3.json()]))
-    .then(([data1, data2, data3]) => {setGame(data1.data[0]); setGameScreenshots(data2.data); setGameDescription(data3.description_raw)})
+      .then(([resp1, resp2, resp3]) => Promise.all([resp1.json(), resp2.json(), resp3.json()]))
+      .then(([data1, data2, data3]) => { setGame(data1.data[0]); setGameScreenshots(data2.data); setGameDescription(data3.description_raw) })
   }, [fetchGameDetailsURL, fetchGameScreenshotsURL, fetchGameDescriptionURL])
 
   console.log(gameDescription);
@@ -56,19 +56,18 @@ const GameDetails = () => {
         </div>
       </div>
       <div>
-      <div className="mx-auto max-w-9xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
-          <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+        <div className="mx-auto max-w-9xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24 rounded-xl bg-[#202121]">
+          <div className="lg:col-span-2 lg:pr-8">
             <h1 className="lg:text-6xl font-bold tracking-tight text-white sm:text-4xl">{game?.game_name}</h1>
           </div>
 
           {/* Options */}
-          <div className="mt-4 lg:row-span-3 lg:mt-0">
+          <div className="mt-4 lg:row-span-3 lg:mt-0 bg-[#282929] shadow rounded-xl border-black border-1">
             <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl tracking-tight text-white">{product.price}</p>
+            <p className="text-3xl tracking-tight text-white p-3">{product.price}</p>
 
             {/* Reviews */}
-            <div className="mt-6">
-              <h3 className="sr-only">Reviews</h3>
+            <div className=" px-3 mt-6">
               <div className="flex items-center">
                 <div className="flex items-center">
                   {[0, 1, 2, 3, 4].map((rating) => (
@@ -88,34 +87,30 @@ const GameDetails = () => {
                 </a>
               </div>
             </div>
-
-            <form className="mt-10">
-              {/* Colors */}
-        
-
+            <div className="px-3 mt-6 flex items-center justify-center">
               <button
                 type="submit"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-gray py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="mt-10 flex w-80 items-center justify-center rounded-md border bg-gray py-3 px-8 text-base font-medium text-white hover:bg-[#5d6063] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 shadow-sm"
               >
-                Add to bag
+                Add to cart
               </button>
-            </form>
+            </div>
           </div>
 
-          <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
+          <div className="py-10 lg:col-span-2 lg:col-start-1 lg:pt-6 lg:pb-16 lg:pr-8">
             {/* Description and details */}
             <div>
               <h3 className="sr-only">Description</h3>
 
               <div className="space-y-6">
-                <p className="text-base text-white">{gameDescription}</p>
+                <p className="text-base text-white text-justify">{gameDescription}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
+
   )
 }
 
