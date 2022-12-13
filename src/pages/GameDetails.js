@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import Slider from '../components/Slider';
 import { StarIcon } from '@heroicons/react/20/solid';
-import {GameContext} from '../contexts/GameContext';
+import { GameContext } from '../contexts/GameContext';
 
 const product = {
   price: '$192',
@@ -24,12 +24,11 @@ const GameDetails = () => {
   const [gameDescription, setGameDescription] = useState();
   const [gamePlatforms, setGamePlatforms] = useState();
 
-  const {setGamesInCart} = useContext(GameContext);
-
+  const { setGamesInCart } = useContext(GameContext);
 
   function addGametoCart() {
     setGamesInCart(prev => [...prev, id]);
-  }   
+  }
 
 
   const fetchGameDetailsURL = "http://localhost:8000/games/fetchGameByID?game_id=" + id;
@@ -63,14 +62,6 @@ const GameDetails = () => {
       gamePlatformString += gamePlatforms[i].platform_name + ", ";
     }
   }
-
-  let cartItems = {
-    game_id: id,
-    game_name: game?.game_name,
-    game_price: product.price
-  }
-
-  console.log(cartItems);
 
   return (
     <div className="flex flex-col">
