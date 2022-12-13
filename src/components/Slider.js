@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md'
 
 const variants = {
     initial: direction => {
@@ -74,11 +75,11 @@ const Slider = (imagesProp) => {
                     custom={direction}
                 />
             </AnimatePresence>
-            <button className='lg:p-5 sm:p-2 aspect-square rounded-full bg-[#28313B] border-none cursor-pointer text-center text-white lg:text-xl absolute top-[45%] left-[5px] opacity-20 hover:opacity-75' onClick={prevStep}>
-                ◀
+            <button className='lg:p-5 sm:p-2 aspect-square rounded-full bg-[#28313B] border-none cursor-pointer text-center text-white lg:text-xl absolute top-[45%] left-[5px] opacity-20 hover:opacity-75 outline-none' onClick={prevStep}>
+                <MdOutlineKeyboardArrowLeft size={25} />
             </button>
-            <button className='lg:p-5 sm:p-2 aspect-square rounded-full bg-[#28313B] border-none cursor-pointer text-center text-white lg:text-xl absolute top-[45%] right-[5px] opacity-20 hover:opacity-75' onClick={nextStep}>
-                ▶
+            <button className='lg:p-5 sm:p-2 aspect-square rounded-full bg-[#28313B] border-none cursor-pointer text-center text-white lg:text-xl absolute top-[45%] right-[5px] opacity-20 hover:opacity-75 outline-none' onClick={nextStep}>
+                <MdOutlineKeyboardArrowRight size={25} />
             </button>
         </>
     )

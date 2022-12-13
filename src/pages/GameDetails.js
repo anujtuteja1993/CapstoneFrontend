@@ -62,10 +62,9 @@ const GameDetails = () => {
           </div>
 
           {/* Options */}
-          <div className="mt-4 lg:row-span-3 lg:mt-0 bg-[#282929] shadow rounded-xl border-black border-1">
+          <div className="mt-4 lg:row-span-3 lg:mt-0 bg-[#282929] shadow rounded-xl border-black border-1 p-5">
             <h2 className="sr-only">Product information</h2>
             <p className="text-3xl tracking-tight text-white p-3">{product.price}</p>
-
             {/* Reviews */}
             <div className=" px-3 mt-6">
               <div className="flex items-center">
@@ -87,6 +86,7 @@ const GameDetails = () => {
                 </a>
               </div>
             </div>
+            <div className="flex p-10 justify-center text-white">Platforms Placeholder</div>
             <div className="px-3 mt-6 flex items-center justify-center">
               <button
                 type="submit"
