@@ -17,7 +17,6 @@ const GameRow = ({title}) => {
             setGames(data);
         });
       }
-      console.log(games);
 
   return (
     <div className='py-5'>

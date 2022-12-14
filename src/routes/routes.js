@@ -15,7 +15,6 @@ export const AppRoutes = (props) => {
         <Route exact path='/games' element={<Games {...props} />} />
         <Route exact path='/test' element={<Test {...props} />} />
         <Route exact path='/cart' element={<CartDetails {...props} />} />
-
         {/* <Route exact path='/gamedetail' element={<GameDetail {...props} />} /> */}
 </Routes>
   )
