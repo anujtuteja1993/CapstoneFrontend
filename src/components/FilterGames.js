@@ -10,7 +10,7 @@ useEffect(() => {
 
      const filtered = allGames.filter(game => game.genre_name.includes(activeGenre));
      setFiltered(filtered);
-}, [activeGenre])
+}, [activeGenre, allGames, setFiltered])
 
     return (
         <div className='p-10 flex justify-center'>
@@ -21,7 +21,6 @@ useEffect(() => {
             <button onClick={() => setActiveGenre('Fighting')} className='mr-8 min-w-[5rem] font-bold px-[0.5rem] py-[1rem] border bg-none hover:bg-[#0c2b45] rounded-xl text-white'>Fighting</button>
             <button onClick={() => setActiveGenre('Strategy')} className='mr-8 min-w-[5rem] font-bold px-[0.5rem] py-[1rem] border bg-none hover:bg-[#0c2b45] rounded-xl text-white'>Strategy</button>
             <button onClick={() => setActiveGenre('Platformer')} className='mr-8 min-w-[5rem] font-bold px-[0.5rem] py-[1rem] border bg-none hover:bg-[#0c2b45] rounded-xl text-white'>Platformer</button>
-            
         </div>
     )
 }

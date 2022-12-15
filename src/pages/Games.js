@@ -11,11 +11,6 @@ const Games = () => {
   const [filtered, setFiltered] = useState([])
   const [activeGenre, setActiveGenre] = useState("Action");
 
-
-  useEffect(() => {
-    fetchGames();
-  }, [])
-
   const fetchGames = () => {
     fetch('http://localhost:8000/games/getGamesByGenre?genres=["Action","Adventure","RPG", "Racing", "Shooter", "Fighting", "Strategy", "Platformer"]')
       .then(resp => resp.json())
@@ -25,6 +20,12 @@ const Games = () => {
         setFiltered(filtered);
       });
   }
+
+  useEffect(() => {
+    fetchGames();
+  }, [])
+
+ 
 
   return (
     <div>

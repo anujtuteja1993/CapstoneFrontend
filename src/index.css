@@ -10,6 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: linear-gradient(to right, #2C3E50 , #000000);
+  overscroll-behavior: none;
 }
 
 code {
