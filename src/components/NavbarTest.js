@@ -19,13 +19,14 @@ const NavbarTest = () => {
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      let searchTemp = e.target.value;
-      const SearchAPIURL = `http://localhost:8000/games/searchGamesbyName?game_name=${searchTemp}`;
+      let searchParam = e.target.value;
+      const SearchAPIURL = `http://localhost:8000/games/searchGamesbyName?game_name=${searchParam}`;
       fetch(SearchAPIURL)
       .then(resp => resp.json())
       .then(({data}) => {
         searchResults = data;
-        navigate('/searchresults', {state:{searchResults}});
+        e.target.value = "";
+        navigate('/searchresults', {state:{searchResults, searchParam}});
       })
     }
   };
