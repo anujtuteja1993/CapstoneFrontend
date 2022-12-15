@@ -5,6 +5,7 @@ import GameDetails from '../pages/GameDetails';
 import Games from '../pages/Games';
 import Test from '../pages/Test';
 import CartDetails from '../pages/CartDetails';
+import SearchPage from '../pages/SearchPage';
 
 export const AppRoutes = (props) => {
   return (
@@ -15,6 +16,7 @@ export const AppRoutes = (props) => {
         <Route exact path='/games' element={<Games {...props} />} />
         <Route exact path='/test' element={<Test {...props} />} />
         <Route exact path='/cart' element={<CartDetails {...props} />} />
+        <Route exact path="/searchresults" element={<SearchPage {...props} />} /> 
         {/* <Route exact path='/gamedetail' element={<GameDetail {...props} />} /> */}
 </Routes>
   )

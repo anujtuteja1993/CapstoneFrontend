@@ -1,16 +1,33 @@
-import React, { useState,useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import logo from './images/logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import cart from './images/cart.png';
-import { GameContext } from '../contexts/GameContext';
+import { GameContext } from '../contexts/GameContext'
 
 const NavbarTest = () => {
+
+  let navigate = useNavigate();
   const [nav, setNav] = useState(false);
-  const {gamesInCart} = useContext(GameContext);
+  const { gamesInCart } = useContext(GameContext);
+  let searchResults = [];
 
   const handleNav = () => {
     setNav(!nav);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      let searchTemp = e.target.value;
+      const SearchAPIURL = `http://localhost:8000/games/searchGamesbyName?game_name=${searchTemp}`;
+      fetch(SearchAPIURL)
+      .then(resp => resp.json())
+      .then(({data}) => {
+        searchResults = data;
+        navigate('/searchresults', {state:{searchResults}});
+      })
+    }
   };
 
   return (
@@ -18,7 +35,7 @@ const NavbarTest = () => {
       <Link to='/'>
         <img className="flex justify-start w-20 h-20" src={logo} alt="logo" />
       </Link>
-      <input type='text' placeholder='Search' className='bg-[#0c2b45] rounded-xl lg:w-1/4 w-1/2 p-2 focus:outline-none focus:lg:w-1/2 duration-300 border-[#dadde0]' />
+      <input onKeyDown={handleKeyDown} type='text' placeholder='Search' className='bg-[#0c2b45] rounded-xl lg:w-1/4 w-1/2 p-2 focus:outline-none focus:lg:w-1/2 duration-300 border-[#dadde0]' />
       <ul className='hidden md:flex'>
         <Link to='/'>
           <li className='p-4'>Home</li>
@@ -33,8 +50,8 @@ const NavbarTest = () => {
           <div className="text-white font-bold p-4">Sign in</div>
           <div className="p-3">
             <Link to='/cart'>
-            <img src={cart} alt="cart" className="w-8 h-8" />
-            <span>{gamesInCart.length}</span>
+              <img src={cart} alt="cart" className="w-8 h-8" />
+              <span>{gamesInCart.length}</span>
             </Link>
           </div>
         </div>
@@ -52,9 +69,9 @@ const NavbarTest = () => {
         <li className='p-4 border-b border-gray-600'>About</li>
         <li className='p-4 border-b border-gray-600 font-bold'>Sign In</li>
         <li className='p-4 border-b border-gray-600'>
-        <Link to='/cart'>
+          <Link to='/cart'>
             <img src={cart} alt="cart" className="w-8 h-8" />
-        </Link>
+          </Link>
         </li>
       </ul>
     </div>

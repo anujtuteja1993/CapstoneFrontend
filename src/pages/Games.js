@@ -26,7 +26,6 @@ const Games = () => {
   }, [])
 
  
-
   return (
     <div>
       <FilterGames allGames={games} setFiltered={setFiltered} activeGenre={activeGenre} setActiveGenre={setActiveGenre} />
