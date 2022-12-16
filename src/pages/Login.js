@@ -7,12 +7,29 @@ const Login = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [formErrors, setFormErrors] = useState({});
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email, password);
+        setFormErrors(validate({ email, password }));
+        setFormSubmitted(true);
     }
 
+    const validate = (values) => {
+        let errors = {};
+        if (!values.email) {
+            errors.email = '*Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+            errors.email = '*Email address is invalid';
+        }
+        if (!values.password) {
+            errors.password = '*Password is required';
+        } else if (values.password.length < 6) {
+            errors.password = '*Password needs to be atleast 6 or more characters';
+        }
+        return errors;
+    }
 
     return (
         <motion.div layout>
@@ -23,14 +40,24 @@ const Login = (props) => {
                     <h2 className='font-bold text-center text-5xl text-white'>
                         <img src={logo} alt="logo" className="w-20 h-20 inline-block"></img>
                     </h2>
+                    <motion.div layout>
                     <div className='flex flex-col mb-5'>
-                        <label className="text-white py-2">Email</label>
-                        <input value={email} onChange={(e) => setEmail(e.target.value)} className='border relative bg-[#e1e9f5] p-2 rounded-xl' type="text" />
+                        <label htmlFor='email' className="text-white py-2">Email</label>
+                        <input placeholder='example@email.com' value={email} onChange={(e) => setEmail(e.target.value)} className='border relative bg-[#e1e9f5] p-2 rounded-xl' type="email" />
+                        <motion.div layout>
+                        <p className="text-red-400 font-sans text-sm">{formErrors.email}</p>
+                        </motion.div>
                     </div>
+                    </motion.div>
+                    <motion.div layout>
                     <div className='flex flex-col mb-5'>
-                        <label className="text-white py-2">Password</label>
-                        <input value={password} onChange={(e) => setPassword(e.target.value)} className='border relative  bg-[#e1e9f5] p-2 rounded-xl' type="password" />
+                        <label htmlFor='password' className="text-white py-2">Password</label>
+                        <input placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} className='border relative  bg-[#e1e9f5] p-2 rounded-xl' type="password" />
+                        <motion.div layout>
+                        <p className="text-red-400 font-sans text-sm">{formErrors.password}</p>
+                        </motion.div>
                     </div>
+                    </motion.div>
                     <button className='w-full py-4 mt-8 bg-[#0c2b45]/80 border border-[#e1e9f5]/20 hover:bg-[#0c2b45]/100 relative rounded-xl text-white'>Sign In</button>
                     <p className='flex items-center mt-2 text-white py-2'><input type="checkbox" />Remember Me</p>
                     <p onClick={() => props.onFormSwitch('sign up')} className='text-center mt-8 text-white hover:cursor-pointer'>Not a member? Create an Account</p>

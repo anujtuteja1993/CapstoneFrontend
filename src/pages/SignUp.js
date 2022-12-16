@@ -9,10 +9,34 @@ const SignUp = (props) => {
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [formErrors, setFormErrors] = useState({});
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email, password, firstName, lastName);
+        setFormErrors(validate({ email, password, firstName, lastName }));
+        setFormSubmitted(true);
+    }
+
+    const validate = (values) => {
+        let errors = {};
+        if (!values.email) {
+            errors.email = '*Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+            errors.email = '*Email address is invalid';
+        }
+        if (!values.password) {
+            errors.password = '*Password is required';
+        } else if (values.password.length < 6) {
+            errors.password = '*Password needs to be atleast 6 or more characters';
+        }
+        if (!values.firstName) {
+            errors.firstName = '*First Name is required';
+        }
+        if (!values.lastName) {
+            errors.lastName = '*Last Name is required';
+        }
+        return errors;
     }
 
     return (
@@ -24,23 +48,43 @@ const SignUp = (props) => {
                         <h2 className='font-bold text-center text-5xl text-white'>
                             <img src={logo} alt="logo" className="w-20 h-20 inline-block"></img>
                         </h2>
-                        <div className='flex flex-col mb-5'>
-                            <label className="text-white py-2">First Name</label>
-                            <input value={firstName} onChange={(e) => setFirstName(e.target.value)} className='border relative bg-[#e1e9f5] p-2 rounded-xl' type="text" />
-                        </div>
-                        <div className='flex flex-col mb-5'>
-                            <label className="text-white py-2">Last Name</label>
-                            <input value={lastName} onChange={(e) => setLastName(e.target.value)} className='border relative bg-[#e1e9f5] p-2 rounded-xl' type="text" />
-                        </div>
-                        <div className='flex flex-col mb-5'>
-                            <label className="text-white py-2">Email</label>
-                            <input value={email} onChange={(e) => setEmail(e.target.value)} className='border relative bg-[#e1e9f5] p-2 rounded-xl' type="text" />
-                        </div>
-                        <div className='flex flex-col mb-5'>
-                            <label className="text-white py-2">Password</label>
-                            <input value={password} onChange={(e) => setPassword(e.target.value)} className='border relative  bg-[#e1e9f5] p-2 rounded-xl' type="password" />
-                        </div>
-                        <button type="submit" className='w-full py-4 mt-8 bg-[#0c2b45]/80 border border-[#e1e9f5]/20 hover:bg-[#0c2b45]/100 relative rounded-xl text-white'>Register</button>
+                        <motion.div layout>
+                            <div className='flex flex-col mb-5'>
+                                <label className="text-white py-2">First Name</label>
+                                <input placeholder='First Name' value={firstName} onChange={(e) => setFirstName(e.target.value)} className='border relative bg-[#e1e9f5] p-2 rounded-xl' type="text" />
+                                <motion.div layout>
+                                    <p className="text-red-400 font-sans text-sm">{formErrors.firstName}</p>
+                                </motion.div>
+                            </div>
+                        </motion.div>
+                        <motion.div layout>
+                            <div className='flex flex-col mb-5'>
+                                <label className="text-white py-2">Last Name</label>
+                                <input placeholder='Last Name' value={lastName} onChange={(e) => setLastName(e.target.value)} className='border relative bg-[#e1e9f5] p-2 rounded-xl' type="text" />
+                                <motion.div layout>
+                                    <p className="text-red-400 font-sans text-sm">{formErrors.lastName}</p>
+                                </motion.div>
+                            </div>
+                        </motion.div>
+                        <motion.div layout>
+                            <div className='flex flex-col mb-5'>
+                                <label className="text-white py-2">Email</label>
+                                <input placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} className='border relative bg-[#e1e9f5] p-2 rounded-xl' type="email" />
+                                <motion.div layout>
+                                    <p className="text-red-400 font-sans text-sm">{formErrors.email}</p>
+                                </motion.div>
+                            </div>
+                        </motion.div>
+                        <motion.div layout>
+                            <div className='flex flex-col mb-5'>
+                                <label className="text-white py-2">Password</label>
+                                <input placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} className='border relative  bg-[#e1e9f5] p-2 rounded-xl' type="password" />
+                                <motion.div layout>
+                                    <p className="text-red-400 font-sans text-sm">{formErrors.password}</p>
+                                </motion.div>
+                            </div>
+                        </motion.div>
+                        <button onSubmit={handleSubmit} type="submit" className='w-full py-4 mt-8 bg-[#0c2b45]/80 border border-[#e1e9f5]/20 hover:bg-[#0c2b45]/100 relative rounded-xl text-white'>Register</button>
                         <p onClick={() => props.onFormSwitch('login')} className='text-center mt-8 text-white hover:cursor-pointer'>Already have an account? Sign in here</p>
                     </form>
                 </div>
