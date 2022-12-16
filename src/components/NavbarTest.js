@@ -46,7 +46,7 @@ const NavbarTest = () => {
         </Link>
         <li className='p-4'>About</li>
       </ul>
-      <div className="flex flex-end hidden md:flex">
+      <div className="flex-end hidden md:flex">
         <div className="flex flex-row justify-end gap-x-5 p-4">
           <div className="text-white font-bold p-4">Sign in</div>
           <div className="p-3">
@@ -72,6 +72,7 @@ const NavbarTest = () => {
         <li className='p-4 border-b border-gray-600'>
           <Link to='/cart'>
             <img src={cart} alt="cart" className="w-8 h-8" />
+            <span>{gamesInCart.length}</span>
           </Link>
         </li>
       </ul>

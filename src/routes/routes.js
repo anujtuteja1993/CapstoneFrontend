@@ -6,6 +6,7 @@ import Games from '../pages/Games';
 import Test from '../pages/Test';
 import CartDetails from '../pages/CartDetails';
 import SearchPage from '../pages/SearchPage';
+import LoginSignUp from '../components/LoginSignUp';
 
 export const AppRoutes = (props) => {
   return (
@@ -17,6 +18,7 @@ export const AppRoutes = (props) => {
         <Route exact path='/test' element={<Test {...props} />} />
         <Route exact path='/cart' element={<CartDetails {...props} />} />
         <Route exact path="/searchresults" element={<SearchPage {...props} />} /> 
+        <Route exact path="/login" element={<LoginSignUp {...props} />} />
         {/* <Route exact path='/gamedetail' element={<GameDetail {...props} />} /> */}
 </Routes>
   )
