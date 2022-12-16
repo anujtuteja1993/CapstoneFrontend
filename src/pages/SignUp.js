@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import LoginImg from './images/Login.png'
 import logo from '../components/images/logo.png'
 import { motion } from 'framer-motion'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const SignUp = (props) => {
 
@@ -11,11 +13,30 @@ const SignUp = (props) => {
     const [lastName, setLastName] = useState('');
     const [formErrors, setFormErrors] = useState({});
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [message, setMessage] = useState('');
+    let navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setFormErrors(validate({ email, password, firstName, lastName }));
         setFormSubmitted(true);
+
+        if(Object.keys(formErrors).length > 0) return;
+        try {
+            await axios.post('http://localhost:8000/users/registerUser', { 
+                email: email,
+                password: password,
+                firstName: firstName,
+                lastName: lastName
+        })
+        props.onFormSwitch('login');
+        navigate('/login');
+
+        } catch (error) {
+            if (error.response) {
+                setMessage(error.response.data.msg);
+            }
+        }
     }
 
     const validate = (values) => {

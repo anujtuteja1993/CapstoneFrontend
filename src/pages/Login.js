@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import LoginImg from './images/Login.png'
 import logo from '../components/images/logo.png'
 import { motion } from 'framer-motion'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Login = (props) => {
 
@@ -9,11 +11,31 @@ const Login = (props) => {
     const [password, setPassword] = useState('');
     const [formErrors, setFormErrors] = useState({});
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [message, setMessage] = useState('');
+    let navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit =  (e) => {
         e.preventDefault();
         setFormErrors(validate({ email, password }));
         setFormSubmitted(true);
+
+        try {
+                axios.post('http://localhost:8000/users/userLogin', {
+                email: email,
+                password: password
+                }).then((response) => {setMessage(response.data.msg)});
+                console.log(message);
+            if (message === 'Log in successful') {
+                navigate('/');
+                localStorage.setItem('user', email);
+            }
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.msg);
+                setMessage(error.response.data.msg);
+                console.log(message);
+            }
+        }
     }
 
     const validate = (values) => {
@@ -25,9 +47,7 @@ const Login = (props) => {
         }
         if (!values.password) {
             errors.password = '*Password is required';
-        } else if (values.password.length < 6) {
-            errors.password = '*Password needs to be atleast 6 or more characters';
-        }
+        } 
         return errors;
     }
 
