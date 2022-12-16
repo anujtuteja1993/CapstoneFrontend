@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import logo from './images/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,6 +10,8 @@ const NavbarTest = () => {
   let navigate = useNavigate();
   const [nav, setNav] = useState(false);
   const { gamesInCart } = useContext(GameContext);
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
   let searchResults = [];
 
   const handleNav = () => {
@@ -22,14 +24,20 @@ const NavbarTest = () => {
       let searchParam = e.target.value;
       const SearchAPIURL = `http://localhost:8000/games/searchGamesbyName?game_name=${searchParam}`;
       fetch(SearchAPIURL)
-      .then(resp => resp.json())
-      .then(({data}) => {
-        searchResults = data;
-        e.target.value = "";
-        navigate('/searchresults', {state:{searchResults, searchParam}});
-      })
+        .then(resp => resp.json())
+        .then(({ data }) => {
+          searchResults = data;
+          e.target.value = "";
+          navigate('/searchresults', { state: { searchResults, searchParam } });
+        })
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      setIsSignedIn(true);
+    }
+  }, [isSignedIn]);
 
   return (
     <div className='flex lg:justify-evenly justify-between px-2 items-center h-24 max-w-full mx-auto text-white lg:px-10'>
@@ -44,11 +52,16 @@ const NavbarTest = () => {
         <Link to='/games'>
           <li className='p-4'>Browse Games</li>
         </Link>
-        <li className='p-4'>About</li>
+        {/* <li className='p-4'>About</li> */}
       </ul>
       <div className="flex-end hidden md:flex">
         <div className="flex flex-row justify-end gap-x-5 p-4">
-          <div className="text-white font-bold p-4">Sign in</div>
+          {isSignedIn ? <div onClick={() => {
+            localStorage.clear('user');
+            window.location.reload()
+          }}
+            className="text-white font-bold p-4">Sign out</div> : <div onClick={() => navigate("/login")} className="text-white font-bold p-4 cursor-pointer">Sign in</div>}
+          {/* <div className="text-white font-bold p-4">Sign in</div> */}
           <div className="p-3">
             <Link to='/cart'>
               <img src={cart} alt="cart" className="w-8 h-8" />
