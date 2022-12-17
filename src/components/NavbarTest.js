@@ -52,11 +52,11 @@ const NavbarTest = () => {
         <Link to='/games'>
           <li className='p-4'>Browse Games</li>
         </Link>
-        {/* <li className='p-4'>About</li> */}
+        <li className='p-4'>About</li>
       </ul>
       <div className="flex-end hidden md:flex">
-        <div className='flex flex-row justify-end gap-x-5 p-10'>{localStorage.getItem("user")}</div>
-        <div className="flex flex-row justify-end gap-x-5 p-4">
+      {isSignedIn ? <div className='flex flex-row py-10 cursor-pointer'>Welcome, {localStorage.getItem("user")}</div> : <div className='flex flex-row py-10'></div>}
+        <div className="flex flex-row justify-end gap-x-5 p-6">
           {isSignedIn ? <div onClick={() => {
             localStorage.clear('user');
             window.location.reload()

@@ -21,10 +21,17 @@ const Login = (props) => {
         setFormSubmitted(true);
 
         try {
+
+            if(!email || !password)
+            {
+                throw new Error('Email or Password required');
+            }
+            
             const response = await axios.post('http://localhost:8000/users/userLogin', {
                 email: email,
                 password: password
             })
+
             if (response.data.success) {
 
                 const decoded = jwt_decode(response.data.token);

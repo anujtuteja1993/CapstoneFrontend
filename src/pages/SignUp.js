@@ -16,21 +16,23 @@ const SignUp = (props) => {
     const [message, setMessage] = useState('');
     let navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        setFormErrors(validate({ email, password, firstName, lastName }));
+        let formErrorValidation = validate({ email, password, firstName, lastName });
+        
         setFormSubmitted(true);
 
-        if(Object.keys(formErrors).length > 0) return;
+        if (Object.keys(formErrorValidation).length > 0) return;
+
         try {
-            await axios.post('http://localhost:8000/users/registerUser', { 
+            axios.post('http://localhost:8000/users/registerUser', {
                 email: email,
                 password: password,
                 firstName: firstName,
                 lastName: lastName
-        })
-        props.onFormSwitch('login');
-        navigate('/login');
+            })
+            props.onFormSwitch('login');
+            navigate('/login');
 
         } catch (error) {
             if (error.response) {
@@ -57,8 +59,12 @@ const SignUp = (props) => {
         if (!values.lastName) {
             errors.lastName = '*Last Name is required';
         }
+
+        setFormErrors(errors);
         return errors;
     }
+
+    
 
     return (
         <motion.div layout>
