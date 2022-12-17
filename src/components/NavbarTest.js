@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import cart from './images/cart.png';
 import { GameContext } from '../contexts/GameContext'
 
+
 const NavbarTest = () => {
 
   let navigate = useNavigate();
@@ -17,6 +18,7 @@ const NavbarTest = () => {
   const handleNav = () => {
     setNav(!nav);
   };
+
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -55,20 +57,23 @@ const NavbarTest = () => {
         <li className='p-4'>About</li>
       </ul>
       <div className="flex-end hidden md:flex">
-      {isSignedIn ? <div className='flex flex-row py-10 cursor-pointer'>Welcome, {localStorage.getItem("user")}</div> : <div className='flex flex-row py-10'></div>}
+        {isSignedIn ? <div className='flex flex-row py-10 cursor-pointer'>Welcome, {localStorage.getItem("user")}</div> : <div className='flex flex-row py-10'></div>}
         <div className="flex flex-row justify-end gap-x-5 p-6">
           {isSignedIn ? <div onClick={() => {
-            localStorage.clear('user');
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
             window.location.reload()
           }}
             className="text-white font-bold p-4 cursor-pointer">Sign out</div> : <div onClick={() => navigate("/login")} className="text-white font-bold p-4 cursor-pointer">Sign in</div>}
           {/* <div className="text-white font-bold p-4">Sign in</div> */}
           <div className="p-3 relative flex items-center justify-center">
+
             <Link to='/cart'>
-              <div className='absolute -top-0 -right-0 w-4 h-4 bg-red-500/80 rounded-full flex items-center justify-center text-white text-xs font-bold'>{gamesInCart.length}</div>
-              <img src={cart} alt="cart" className="w-8 h-8" />
+            <div className='absolute -top-0 -right-0 w-4 h-4 bg-red-500/80 rounded-full flex items-center justify-center text-white text-xs font-bold'>{gamesInCart.length}</div>
+            <img src={cart} alt="cart" className="w-8 h-8" />
             </Link>
           </div>
+          
         </div>
       </div>
       <div onClick={handleNav} className='block md:hidden'>
@@ -84,7 +89,7 @@ const NavbarTest = () => {
         <li className='p-4 border-b border-gray-600'>About</li>
         <li className='p-4 border-b border-gray-600 font-bold'>Sign In</li>
         <li className='p-4 border-b border-gray-600'>
-        <div className="relative flex">
+          <div className="relative flex">
             <Link to='/cart'>
               <div className='relative -top-0 -right-7 w-4 h-4 bg-red-500/80 rounded-full flex justify-center items-start text-white text-xs font-bold'>{gamesInCart.length}</div>
               <img src={cart} alt="cart" className="w-8 h-8" />
