@@ -5,8 +5,31 @@ import { GameContext } from '../contexts/GameContext'
 
 
 function CartDetailsTest() {
-  const { gamesInCart } = useContext(GameContext);
+  const { gamesInCart, setGamesInCart } = useContext(GameContext);
   const [gamesInCartInfo, setGamesInCartInfo] = useState([]);
+
+  const incrementCartProduct = (id) => {
+    let tempArr = [...gamesInCart];
+    tempArr.push(`${id}`);
+    setGamesInCart(tempArr);  
+    console.log(gamesInCart);
+  }
+
+  const decrementCartProduct = (id) => {
+    const pos = gamesInCart.indexOf(id);
+    let tempArr = [...gamesInCart];
+    tempArr.splice(pos, 1);
+    setGamesInCart(tempArr);
+    console.log(gamesInCart);
+  }
+
+  const removeItemFromCart = (id) => {
+    const pos = gamesInCart.indexOf(id);
+    let tempArr = [...gamesInCart];
+    tempArr.splice(pos, gamesInCart.filter(function checkID(id){ return id === id}).length);
+    setGamesInCart(tempArr);
+    console.log(gamesInCart);
+  }
 
   useEffect(() => {
     const uniqueGames = [...new Set(gamesInCart)];
@@ -35,25 +58,14 @@ function CartDetailsTest() {
 
   return (
     <>
-
       <div className="w-full h-full top-0" id="chec-div">
         <div className="w-full absolute z-1 right-0 h-full overflow-x-hidden transform translate-x-0 transition ease-in-out duration-700" id="checkout">
           <div className="flex md:flex-row flex-col justify-center" id="cart">
             <div className="lg:w-1/2 w-full md:pl-10 pl-4 pr-10 md:pr-4 md:py-12 py-8 bg-[#202121]/50 overflow-y-auto overflow-x-hidden h-screen rounded-l-xl" id="scroll">
-              {/* <div className="flex items-center text-gray-500 hover:text-gray-600 cursor-pointer" onClick={() => setShow(!show)}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left" width={16} height={16} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <polyline points="15 6 9 12 15 18" />
-                                        </svg>
-                                        <p className="text-sm pl-2 leading-none">Home</p>
-                                    </div> */}
               <p className="text-5xl font-black leading-10 text-white pt-3">Cart</p>
               {!gamesInCart.length && (
-                <div>no products in your shopping cart</div>
-              )} {!gamesInCart.length && (
-                <div>no products in your shopping cart</div>
+                <div className="py-10 text-3xl text-white">Your Cart is empty</div>
               )}
-
               {gamesInCartInfo?.map(gameInfo => {
                 return (
                   <div className="md:flex items-center mt-14 py-8 border-t border-gray-200" key={gameInfo.id}>
@@ -63,13 +75,15 @@ function CartDetailsTest() {
                     <div className="md:pl-3 md:w-3/4">
                       <div className="flex items-center justify-between w-full pt-1">
                         <p className="text-xl font-bold leading-none text-white">{gameInfo.game_name}</p>
-                        <div className="text-white py-2 px-1 border border-gray-200 mr-6 focus:outline-none">
-                          <span>{gameInfo.quantity}</span>
+                        <div className="flex flex-row text-white py-1 px-1 mr-6 focus:outline-none">
+                          <button className="bg-gray-800 hover:bg-gray-700 text-white font-bold p-2 rounded-lg" onClick={() => decrementCartProduct(gameInfo.id)}>-</button>
+                          <p className="p-2">{gameInfo.quantity}</p >
+                          <button className="bg-gray-800 hover:bg-gray-700 text-white font-bold p-2 rounded-lg" onClick={() => incrementCartProduct(gameInfo.id)}>+</button>
                         </div>
                       </div>
                       <div className="flex items-center justify-between pt-5 pr-6">
                         <div className="flex itemms-center">
-                          <p className="text-xs leading-3 underline text-red-500 cursor-pointer">Remove</p>
+                          <p onClick={() => removeItemFromCart(gameInfo.id)} className="text-xs leading-3 underline text-red-500 cursor-pointer">Remove</p>
                         </div>
                         <p className="text-base font-black leading-none text-white">$59.99</p>
                       </div>
@@ -77,7 +91,7 @@ function CartDetailsTest() {
                   </div>)
               })}
             </div>
-            <div className="xl:w-1/2 md:w-1/3 xl:w-1/4 w-full bg-[#282929]/50 h-full rounded-r-xl">
+            <div className="md:w-1/3 xl:w-1/4 w-full bg-[#282929]/50 h-full rounded-r-xl">
               <div className="flex flex-col md:h-screen px-14 py-20 justify-between overflow-y-auto">
                 <div>
                   <p className="text-4xl font-black leading-9 text-white">Summary</p>
