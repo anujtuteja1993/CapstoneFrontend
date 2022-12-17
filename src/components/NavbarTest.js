@@ -55,17 +55,18 @@ const NavbarTest = () => {
         {/* <li className='p-4'>About</li> */}
       </ul>
       <div className="flex-end hidden md:flex">
+        <div className='flex flex-row justify-end gap-x-5 p-10'>{localStorage.getItem("user")}</div>
         <div className="flex flex-row justify-end gap-x-5 p-4">
           {isSignedIn ? <div onClick={() => {
             localStorage.clear('user');
             window.location.reload()
           }}
-            className="text-white font-bold p-4">Sign out</div> : <div onClick={() => navigate("/login")} className="text-white font-bold p-4 cursor-pointer">Sign in</div>}
+            className="text-white font-bold p-4 cursor-pointer">Sign out</div> : <div onClick={() => navigate("/login")} className="text-white font-bold p-4 cursor-pointer">Sign in</div>}
           {/* <div className="text-white font-bold p-4">Sign in</div> */}
-          <div className="p-3">
+          <div className="p-3 relative flex items-center justify-center">
             <Link to='/cart'>
+              <div className='absolute -top-0 -right-0 w-4 h-4 bg-red-500/80 rounded-full flex items-center justify-center text-white text-xs font-bold'>{gamesInCart.length}</div>
               <img src={cart} alt="cart" className="w-8 h-8" />
-              <span>{gamesInCart.length}</span>
             </Link>
           </div>
         </div>
@@ -83,10 +84,12 @@ const NavbarTest = () => {
         <li className='p-4 border-b border-gray-600'>About</li>
         <li className='p-4 border-b border-gray-600 font-bold'>Sign In</li>
         <li className='p-4 border-b border-gray-600'>
-          <Link to='/cart'>
-            <img src={cart} alt="cart" className="w-8 h-8" />
-            <span>{gamesInCart.length}</span>
-          </Link>
+        <div className="relative flex">
+            <Link to='/cart'>
+              <div className='relative -top-0 -right-7 w-4 h-4 bg-red-500/80 rounded-full flex justify-center items-start text-white text-xs font-bold'>{gamesInCart.length}</div>
+              <img src={cart} alt="cart" className="w-8 h-8" />
+            </Link>
+          </div>
         </li>
       </ul>
     </div>

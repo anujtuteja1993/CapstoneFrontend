@@ -4,6 +4,7 @@ import logo from '../components/images/logo.png'
 import { motion } from 'framer-motion'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import jwt_decode from 'jwt-decode'
 
 const Login = (props) => {
 
@@ -14,22 +15,26 @@ const Login = (props) => {
     const [message, setMessage] = useState('');
     let navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setFormErrors(validate({ email, password }));
         setFormSubmitted(true);
 
         try {
-            axios.post('http://localhost:8000/users/userLogin', {
+            const response = await axios.post('http://localhost:8000/users/userLogin', {
                 email: email,
                 password: password
-            }).then((response) => { setMessage(response.data.msg) });
-            console.log(message);
-            if (message === 'Log in successful') {
+            })
+            if (response.data.success) {
+
+                const decoded = jwt_decode(response.data.token);
+                localStorage.setItem('user', decoded.firstName + " " + decoded.lastName);
+                localStorage.setItem('token', response.data.token);
                 navigate('/');
                 window.location.reload();
-                localStorage.setItem('user', email);
+
             }
+
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.msg);
