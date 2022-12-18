@@ -18,9 +18,7 @@ function CartDetails() {
   }
 
   const decrementCartProduct = (id) => {
-    console.log(id);
     const pos = gamesInCart.indexOf(id.toString());
-    console.log(pos);
     if (pos !== -1) {
       const newGamesInCart = gamesInCart.filter((value, index) => index !== pos);
       console.log(newGamesInCart)
@@ -41,7 +39,7 @@ function CartDetails() {
   }
 
   let subTotal = 0;
-  
+
   gamesInCartInfo.forEach(item => {
     subTotal += item.price * item.quantity;
   })
@@ -106,7 +104,7 @@ function CartDetails() {
                       <div className="flex items-center justify-between w-full pt-1">
                         <p className="text-xl font-bold leading-none text-white">{gameInfo.game_name}</p>
                         <div className="flex flex-row text-white py-1 px-1 mr-6 focus:outline-none">
-                          <button className="bg-gray-800 hover:bg-gray-700 text-white font-bold p-2 rounded-lg" onClick={() => decrementCartProduct(gameInfo.id)}>-</button>
+                          <button className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-2.5 rounded-lg" onClick={() => decrementCartProduct(gameInfo.id)}>-</button>
                           <p className="p-2">{gameInfo.quantity}</p >
                           <button className="bg-gray-800 hover:bg-gray-700 text-white font-bold p-2 rounded-lg" onClick={() => incrementCartProduct(gameInfo.id)}>+</button>
                         </div>
@@ -139,11 +137,11 @@ function CartDetails() {
                     <p className="text-2xl leading-normal text-white">Total</p>
                     <p className="text-2xl font-bold leading-normal text-right text-white">${parseFloat(total).toFixed(2)}</p>
                   </div>
-                  {isSignedIn ? (gamesInCart.length ? <button onClick={() => checkOut()} className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white">Checkout </button> :
-                    <button className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white" disabled>Checkout</button>) :
+                  {isSignedIn ? (gamesInCart.length ? <button onClick={() => checkOut()} className="rounded-lg text-base leading-none w-full py-5 bg-gray-800 hover:bg-gray-700 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white">Checkout </button> :
+                    <button className="rounded-lg text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white" disabled>Checkout</button>) :
                     (
                       <Link to='/login'>
-                        <button className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white">
+                        <button className="rounded-lg text-base leading-none w-full py-5 bg-gray-800 hover:bg-gray-700 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white">
                           Sign in to Checkout</button>
                       </Link>)
                   }
@@ -153,24 +151,6 @@ function CartDetails() {
           </div>
         </div>
       </div>
-
-      <style>
-        {` /* width */
-                #scroll::-webkit-scrollbar {
-                    width: 1px;
-                }
-
-                /* Track */
-                #scroll::-webkit-scrollbar-track {
-                    background: #f1f1f1;
-                }
-
-                /* Handle */
-                #scroll::-webkit-scrollbar-thumb {
-                    background: rgb(133, 132, 132);
-                }
-`}
-      </style>
     </>
   );
 }
