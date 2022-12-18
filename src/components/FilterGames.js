@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react'
 
+//FilterGames is the component used to filter the games according to their Genre.
+//This component is used in the Games.js page. Games.js is the page that displays all the games.
+//Props are passed from Games.js to FilterGames.js to set the activeGenre and setFiltered states.
+
 const FilterGames = ({ setActiveGenre, activeGenre, setFiltered, allGames }) => {
+
 
     useEffect(() => {
         const filtered = allGames.filter(game => game.genre_name.includes(activeGenre));
