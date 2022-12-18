@@ -34,7 +34,8 @@ const Login = (props) => {
             if (response.data.success) {
 
                 const decoded = jwt_decode(response.data.token);
-                localStorage.setItem('user', decoded.firstName + " " + decoded.lastName);
+                localStorage.setItem('name', decoded.firstName + " " + decoded.lastName);
+                localStorage.setItem('user', decoded.loginUserEmail);
                 localStorage.setItem('token', response.data.token);
                 navigate('/');
                 window.location.reload();

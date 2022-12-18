@@ -4,6 +4,7 @@ import logo from './images/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import cart from './images/cart.png';
 import { GameContext } from '../contexts/GameContext'
+import axios from 'axios';
 
 //Navbar component to display the navbar
 const Navbar = () => {
@@ -38,6 +39,29 @@ const Navbar = () => {
     }
   };
 
+
+  //Function to handle the logout
+  const userLogout = async () => {
+    try {
+      const email = localStorage.getItem('user');
+      const response = await axios.post('http://localhost:8000/users/userLogout', {
+        email: email,
+      })
+
+      if (response.data.success) {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        localStorage.removeItem('name');
+        window.location.reload()
+      }
+
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.msg);
+      }
+    }
+  }
+
   //Using useEffect hook to check if a user is signed in and set the isSignedIn state accordingly
   useEffect(() => {
     if (localStorage.getItem('user')) {
@@ -61,13 +85,9 @@ const Navbar = () => {
         <li className='p-4'>About</li>
       </ul>
       <div className="flex-end hidden md:flex">
-        {isSignedIn ? <div className='flex flex-row py-10 cursor-pointer'>Welcome, {localStorage.getItem("user")}</div> : <div className='flex flex-row py-10'></div>}
+        {isSignedIn ? <div className='flex flex-row py-10 cursor-pointer'>Welcome, {localStorage.getItem("name")}</div> : <div className='flex flex-row py-10'></div>}
         <div className="flex flex-row justify-end gap-x-5 p-6">
-          {isSignedIn ? <div onClick={() => {
-            localStorage.removeItem('user');
-            localStorage.removeItem('token');
-            window.location.reload()
-          }}
+          {isSignedIn ? <div onClick={() => userLogout()}
             className="text-white font-bold p-4 cursor-pointer">Sign out</div> : <div onClick={() => navigate("/login")} className="text-white font-bold p-4 cursor-pointer">Sign in</div>}
           <div className="p-3 relative flex items-center justify-center">
             <Link to='/cart'>
@@ -75,7 +95,6 @@ const Navbar = () => {
               <img src={cart} alt="cart" className="w-8 h-8" />
             </Link>
           </div>
-
         </div>
       </div>
       <div onClick={handleNav} className='block md:hidden'>
@@ -89,12 +108,8 @@ const Navbar = () => {
           <li className='p-4 border-b border-gray-600'>Browse Games</li>
         </Link>
         <li className='p-4 border-b border-gray-600'>About</li>
-        {isSignedIn ? <li className='p-4 border-b border-gray-600 font-bold cursor-pointer'>Welcome, {localStorage.getItem("user")}</li> : <li onClick={() => navigate("/login")} className='p-4 border-b border-gray-600 font-bold cursor-pointer'>Sign In</li>}
-        {isSignedIn && <li onClick={() => {
-          localStorage.removeItem('user');
-          localStorage.removeItem('token');
-          window.location.reload()
-        }}
+        {isSignedIn ? <li className='p-4 border-b border-gray-600 font-bold cursor-pointer'>Welcome, {localStorage.getItem("name")}</li> : <li onClick={() => navigate("/login")} className='p-4 border-b border-gray-600 font-bold cursor-pointer'>Sign In</li>}
+        {isSignedIn && <li onClick={() => userLogout()}
           className="p-4 border-b border-gray-600 cursor-pointer">Sign out</li>}
         <li className='p-4 border-b border-gray-600'>
           <div className="relative flex">
