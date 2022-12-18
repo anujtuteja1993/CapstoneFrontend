@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import Slider from './Slider'
 
+//HomeSlider component to fetch the game images from the API and pass it to the Slider component
 function HomeSlider() {
   const [games, setGames] = useState([])
 
@@ -16,8 +17,6 @@ function HomeSlider() {
         setGames(data);
       });
   }
-
-  console.log(games);
 
   let gameImages = [];
   games.forEach(game => {

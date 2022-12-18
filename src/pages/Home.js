@@ -1,31 +1,34 @@
 import React from 'react'
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import HomeSlider from '../components/HomeSlider';
 import GameRow from '../components/GameRow';
 
 
 const Home = () => {
+  //Setting up the states to store the data from the API calls
+  const [criticallyAcclaimed, setCriticallyAcclaimed] = useState();
+  const [highestRated, setHighestRated] = useState();
+  const [classicGames, setClassicGames] = useState();
 
-  const [games, setGames] = useState([]);
+  //URLs for the API calls
+  const fetchCriticallyAcclaimedGamesURL = 'http://localhost:8000/games/getCriticallyAcclaimedGames';
+  const fetchHighestUserRatedGamesURL = 'http://localhost:8000/games/getHighestUserRatedGames';
+  const fetchClassicGamesURL =  'http://localhost:8000/games/getClassicGames';
 
-  const fetchGames = () => {
-    fetch('http://localhost:8000/games/getCriticallyAcclaimedGames')
-      .then(resp => resp.json())
-      .then(({ data }) => {
-        setGames(data);
-      });
-  }
-  
+  //API calls in UseEffect using Promise.all
   useEffect(() => {
-    fetchGames();
-  }, [])
+    Promise.all([fetch(fetchCriticallyAcclaimedGamesURL), fetch(fetchHighestUserRatedGamesURL), fetch(fetchClassicGamesURL)])
+      .then(([resp1, resp2, resp3]) => Promise.all([resp1.json(), resp2.json(), resp3.json()]))
+      .then(([data1, data2, data3]) => { setCriticallyAcclaimed(data1.data); setHighestRated(data2.data); setClassicGames(data3.data) })
+  }, [fetchCriticallyAcclaimedGamesURL, fetchHighestUserRatedGamesURL])
 
+  //Re-using the GameRow component to display the games
   return (
     <div>
       <HomeSlider />
-      <GameRow title='Popular' games={games} />
-      <GameRow title='Upcoming' games={games} />
-      <GameRow title='New Releases' games={games}/>
+      <GameRow title='Critically Acclaimed Games' games={criticallyAcclaimed} />
+      <GameRow title='Loved By Users' games={highestRated} />
+      <GameRow title='Classic Games' games={classicGames} />
     </div>
   )
 }

@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 //Game component is used to display the game image and name in the GameRow component
-
 const Game = ({ game }) => {
     return (
         <Link to={`/games/${game.id}`}>

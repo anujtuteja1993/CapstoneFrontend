@@ -30,8 +30,6 @@ const GameDetails = () => {
   const fetchGameDescriptionURL = "https://api.rawg.io/api/games/" + id + "?key=f2b65746f0874d129d3550dd301e2b74"
   const fetchGamePlatformsURL = "http://localhost:8000/games/getGamePlatformDetailsByID?game_id=" + id;
 
-  console.log(fetchGameDescriptionURL);
-
 
   useEffect(() => {
     Promise.all([fetch(fetchGameDetailsURL), fetch(fetchGameScreenshotsURL), fetch(fetchGameDescriptionURL), fetch(fetchGamePlatformsURL)])

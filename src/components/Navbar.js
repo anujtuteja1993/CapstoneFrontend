@@ -5,21 +5,24 @@ import { Link, useNavigate } from 'react-router-dom';
 import cart from './images/cart.png';
 import { GameContext } from '../contexts/GameContext'
 
-
+//Navbar component to display the navbar
 const Navbar = () => {
 
   let navigate = useNavigate();
   const [nav, setNav] = useState(false);
-  const { gamesInCart } = useContext(GameContext);
   const [isSignedIn, setIsSignedIn] = useState(false);
+
+  //Using useContext hook to get the gamesInCart state from GameContext
+  const { gamesInCart } = useContext(GameContext);
 
   let searchResults = [];
 
+  //Function to toggle the navbar
   const handleNav = () => {
     setNav(!nav);
   };
 
-
+  //Function to handle the Search bar
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -35,6 +38,7 @@ const Navbar = () => {
     }
   };
 
+  //Using useEffect hook to check if a user is signed in and set the isSignedIn state accordingly
   useEffect(() => {
     if (localStorage.getItem('user')) {
       setIsSignedIn(true);
@@ -65,9 +69,7 @@ const Navbar = () => {
             window.location.reload()
           }}
             className="text-white font-bold p-4 cursor-pointer">Sign out</div> : <div onClick={() => navigate("/login")} className="text-white font-bold p-4 cursor-pointer">Sign in</div>}
-          {/* <div className="text-white font-bold p-4">Sign in</div> */}
           <div className="p-3 relative flex items-center justify-center">
-
             <Link to='/cart'>
               <div className='absolute -top-0 -right-0 w-4 h-4 bg-red-500/80 rounded-full flex items-center justify-center text-white text-xs font-bold'>{gamesInCart.length}</div>
               <img src={cart} alt="cart" className="w-8 h-8" />
@@ -87,7 +89,13 @@ const Navbar = () => {
           <li className='p-4 border-b border-gray-600'>Browse Games</li>
         </Link>
         <li className='p-4 border-b border-gray-600'>About</li>
-        <li className='p-4 border-b border-gray-600 font-bold'>Sign In</li>
+        {isSignedIn ? <li className='p-4 border-b border-gray-600 font-bold cursor-pointer'>Welcome, {localStorage.getItem("user")}</li> : <li onClick={() => navigate("/login")} className='p-4 border-b border-gray-600 font-bold cursor-pointer'>Sign In</li>}
+        {isSignedIn && <li onClick={() => {
+          localStorage.removeItem('user');
+          localStorage.removeItem('token');
+          window.location.reload()
+        }}
+          className="p-4 border-b border-gray-600 cursor-pointer">Sign out</li>}
         <li className='p-4 border-b border-gray-600'>
           <div className="relative flex">
             <Link to='/cart'>

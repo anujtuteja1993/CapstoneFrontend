@@ -1,9 +1,9 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
+import React from 'react';
 import Game from './Game';
 
+//Reusable GameRow component to display the games in a row
 const GameRow = ({ title, games }) => {
-
+  
   return (
     <div className='py-5'>
       <div className='text-white text-2xl font-bold px-2'>{title}</div>

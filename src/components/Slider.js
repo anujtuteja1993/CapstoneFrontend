@@ -2,19 +2,17 @@ import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md'
 
+//variants for Framer Motion
 const variants = {
     initial: direction => {
         return {
             x: direction > 0 ? 1000 : -1000,
             opacity: 0,
-            // scale: 0.5,
         }
     },
     animate: {
         x: 0,
         opacity: 1,
-        // scale: 1,
-        // transition: 'ease-in',
         transition: {
             x: { type: 'spring', stiffness: 300, damping: 30 },
             opacity: { duration: 0.2 },
@@ -24,8 +22,6 @@ const variants = {
         return {
             x: direction > 0 ? -1000 : 1000,
             opacity: 0,
-            // scale: 0.5,
-            // transition: 'ease-in',
             transition: {
                 x: { type: 'spring', stiffness: 300, damping: 30 },
                 opacity: { duration: 0.2 },
@@ -34,13 +30,11 @@ const variants = {
     },
 }
 
-
+//Re-usable Slider component
 const Slider = (imagesProp) => {
     const [index, setIndex] = useState(0)
     const [direction, setDirection] = useState(0)
     const images = imagesProp.games;
-
-
 
     function nextStep() {
         setDirection(1)
