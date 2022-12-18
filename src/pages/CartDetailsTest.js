@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useContext } from 'react';
 import { GameContext } from '../contexts/GameContext'
+import { Link } from "react-router-dom";
 
 
 
 function CartDetailsTest() {
   const { gamesInCart, setGamesInCart } = useContext(GameContext);
   const [gamesInCartInfo, setGamesInCartInfo] = useState([]);
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
   const incrementCartProduct = (id) => {
     let tempArr = [...gamesInCart];
     tempArr.push(`${id}`);
-    setGamesInCart(tempArr);  
-    console.log(gamesInCart);
+    setGamesInCart(tempArr);
   }
 
   const decrementCartProduct = (id) => {
@@ -26,14 +27,34 @@ function CartDetailsTest() {
   const removeItemFromCart = (id) => {
     const pos = gamesInCart.indexOf(id);
     let tempArr = [...gamesInCart];
-    tempArr.splice(pos, gamesInCart.filter(function checkID(id){ return id === id}).length);
+    tempArr.splice(pos, gamesInCart.filter(function checkID(id) { return id === id }).length);
     setGamesInCart(tempArr);
     console.log(gamesInCart);
   }
 
+  let subTotal = 0;
+  gamesInCartInfo.forEach(item => {
+    subTotal += item.price * item.quantity;
+  })
+
+  let tax = subTotal * 0.15;
+  let total = subTotal + tax;
+
+  const checkOut = () => {
+    if (isSignedIn) {
+      alert("Thank you for your purchase!");
+    } else {
+      alert("Please sign in to complete your purchase.");
+    }
+  }
+  
   useEffect(() => {
     const uniqueGames = [...new Set(gamesInCart)];
     const gameMap = new Map();
+
+    if (localStorage.getItem('user')) {
+      setIsSignedIn(true);
+    }
 
     gamesInCart.forEach(element => {
       if (gameMap.has(element)) {
@@ -85,7 +106,7 @@ function CartDetailsTest() {
                         <div className="flex itemms-center">
                           <p onClick={() => removeItemFromCart(gameInfo.id)} className="text-xs leading-3 underline text-red-500 cursor-pointer">Remove</p>
                         </div>
-                        <p className="text-base font-black leading-none text-white">$59.99</p>
+                        <p className="text-base font-black leading-none text-white">${parseFloat(gameInfo.quantity * gameInfo.price).toFixed(2)}</p>
                       </div>
                     </div>
                   </div>)
@@ -97,17 +118,26 @@ function CartDetailsTest() {
                   <p className="text-4xl font-black leading-9 text-white">Summary</p>
                   <div className="flex items-center justify-between pt-16">
                     <p className="text-base leading-none text-white">Subtotal</p>
-                    <p className="text-base leading-none text-white">$9,000</p>
+                    <p className="text-base leading-none text-white">${parseFloat(subTotal).toFixed(2)}</p>
+                  </div>
+                  <div className="flex items-center justify-between pt-16">
+                    <p className="text-base leading-none text-white">Tax</p>
+                    <p className="text-base leading-none text-white">${parseFloat(tax).toFixed(2)}</p>
                   </div>
                 </div>
                 <div>
                   <div className="flex items-center pb-6 justify-between lg:pt-5 pt-20">
                     <p className="text-2xl leading-normal text-white">Total</p>
-                    <p className="text-2xl font-bold leading-normal text-right text-white">$10,240</p>
+                    <p className="text-2xl font-bold leading-normal text-right text-white">${parseFloat(total).toFixed(2)}</p>
                   </div>
-                  <button className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white">
-                    Checkout
-                  </button>
+                  {isSignedIn ? (gamesInCart.length ? <button onClick={() => checkOut()} className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white">Checkout </button> :
+                    <button className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white" disabled>Checkout</button>) :
+                    (
+                      <Link to='/login'>
+                        <button className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white">
+                          Sign in to Checkout</button>
+                      </Link>)
+                  }
                 </div>
               </div>
             </div>

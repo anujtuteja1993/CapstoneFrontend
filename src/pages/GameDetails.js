@@ -5,12 +5,6 @@ import Slider from '../components/Slider';
 import { StarIcon } from '@heroicons/react/20/solid';
 import { GameContext } from '../contexts/GameContext';
 
-const product = {
-  price: '$192',
-  href: '#'
-}
-
-const reviews = { href: '#', average: 4, totalCount: 117 }
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -79,7 +73,7 @@ const GameDetails = () => {
           {/* Options */}
           <div className="relative mt-4 lg:row-span-3 lg:mt-0 bg-[#282929] shadow rounded-xl border-black border-1 p-5">
             <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl tracking-tight text-white p-3">{product.price}</p>
+            <p className="text-3xl tracking-tight text-white p-3">${game?.price}</p>
             {/* Reviews */}
             <div className=" px-3 mt-6">
               <div className="flex items-center">
@@ -88,17 +82,17 @@ const GameDetails = () => {
                     <StarIcon
                       key={rating}
                       className={classNames(
-                        reviews.average > rating ? 'text-gray-900' : 'text-gray-200',
+                        game?.rating > rating ?  'text-gray-200': 'text-gray-900',
                         'h-5 w-5 flex-shrink-0'
                       )}
                       aria-hidden="true"
                     />
                   ))}
                 </div>
-                <p className="sr-only">{reviews.average} out of 5 stars</p>
+                {/* <p className="sr-only">{reviews.average} out of 5 stars</p>
                 <a href={reviews.href} className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                   {reviews.totalCount} reviews
-                </a>
+                </a> */}
               </div>
             </div>
             <div className="flex flex-col py-5 px-3 justify-center text-white"><p className="font-bold">Platforms:</p>
