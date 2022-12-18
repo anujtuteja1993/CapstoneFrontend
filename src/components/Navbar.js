@@ -6,7 +6,7 @@ import cart from './images/cart.png';
 import { GameContext } from '../contexts/GameContext'
 
 
-const NavbarTest = () => {
+const Navbar = () => {
 
   let navigate = useNavigate();
   const [nav, setNav] = useState(false);
@@ -69,11 +69,11 @@ const NavbarTest = () => {
           <div className="p-3 relative flex items-center justify-center">
 
             <Link to='/cart'>
-            <div className='absolute -top-0 -right-0 w-4 h-4 bg-red-500/80 rounded-full flex items-center justify-center text-white text-xs font-bold'>{gamesInCart.length}</div>
-            <img src={cart} alt="cart" className="w-8 h-8" />
+              <div className='absolute -top-0 -right-0 w-4 h-4 bg-red-500/80 rounded-full flex items-center justify-center text-white text-xs font-bold'>{gamesInCart.length}</div>
+              <img src={cart} alt="cart" className="w-8 h-8" />
             </Link>
           </div>
-          
+
         </div>
       </div>
       <div onClick={handleNav} className='block md:hidden'>
@@ -101,4 +101,4 @@ const NavbarTest = () => {
   );
 };
 
-export default NavbarTest;
+export default Navbar;

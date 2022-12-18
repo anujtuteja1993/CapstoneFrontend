@@ -6,10 +6,10 @@ import GameRow from '../components/GameRow';
 const Home = () => {
   return (
     <div>
-    <HomeSlider />
-    <GameRow title='Popular'/>
-    <GameRow title='Upcoming'/>
-    <GameRow title='New Releases'/>
+      <HomeSlider />
+      <GameRow title='Popular' />
+      <GameRow title='Upcoming' />
+      <GameRow title='New Releases' />
     </div>
   )
 }

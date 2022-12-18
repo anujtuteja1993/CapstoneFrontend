@@ -23,9 +23,8 @@ const Games = () => {
 
   useEffect(() => {
     fetchGames();
-  }, [])
+  })
 
- 
   return (
     <div>
       <FilterGames allGames={games} setFiltered={setFiltered} activeGenre={activeGenre} setActiveGenre={setActiveGenre} />

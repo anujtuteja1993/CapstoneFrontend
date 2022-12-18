@@ -1,12 +1,11 @@
 import { AppRoutes } from './routes/routes';
-import NavbarTest from './components/NavbarTest';
-import Login from './pages/Login';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <>
-    <NavbarTest />
-    <AppRoutes />
+      <Navbar />
+      <AppRoutes />
     </>
   );
 }

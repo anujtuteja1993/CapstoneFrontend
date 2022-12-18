@@ -15,7 +15,7 @@ const LoginSignUp = () => {
 
         <motion.div layout>
             {
-                currentPage === 'login' ? <Login onFormSwitch={togglePage} /> : <SignUp onFormSwitch={togglePage}/>
+                currentPage === 'login' ? <Login onFormSwitch={togglePage} /> : <SignUp onFormSwitch={togglePage} />
             }
         </motion.div>
     )

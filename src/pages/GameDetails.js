@@ -82,7 +82,7 @@ const GameDetails = () => {
                     <StarIcon
                       key={rating}
                       className={classNames(
-                        game?.rating > rating ?  'text-gray-200': 'text-gray-900',
+                        game?.rating > rating ? 'text-gray-200' : 'text-gray-900',
                         'h-5 w-5 flex-shrink-0'
                       )}
                       aria-hidden="true"

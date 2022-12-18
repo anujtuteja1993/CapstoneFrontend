@@ -22,11 +22,10 @@ const Login = (props) => {
 
         try {
 
-            if(!email || !password)
-            {
+            if (!email || !password) {
                 throw new Error('Email or Password required');
             }
-            
+
             const response = await axios.post('http://localhost:8000/users/userLogin', {
                 email: email,
                 password: password

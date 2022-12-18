@@ -1,16 +1,11 @@
 import React, { useEffect } from 'react'
 
-const FilterGames = ({setActiveGenre, activeGenre, setFiltered, allGames}) => {
+const FilterGames = ({ setActiveGenre, activeGenre, setFiltered, allGames }) => {
 
-useEffect(() => {
-    //  if (activeGenre === 'All') {
-    //     setFiltered(allGames);
-    //     return; 
-    //  }
-
-     const filtered = allGames.filter(game => game.genre_name.includes(activeGenre));
-     setFiltered(filtered);
-}, [activeGenre, allGames, setFiltered])
+    useEffect(() => {
+        const filtered = allGames.filter(game => game.genre_name.includes(activeGenre));
+        setFiltered(filtered);
+    }, [activeGenre, allGames, setFiltered])
 
     return (
         <div className='p-10 flex flex-wrap flex-shrink justify-center'>

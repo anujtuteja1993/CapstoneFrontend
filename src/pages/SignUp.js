@@ -19,7 +19,7 @@ const SignUp = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         let formErrorValidation = validate({ email, password, firstName, lastName });
-        
+
         setFormSubmitted(true);
 
         if (Object.keys(formErrorValidation).length > 0) return;
@@ -64,7 +64,7 @@ const SignUp = (props) => {
         return errors;
     }
 
-    
+
 
     return (
         <motion.div layout>
