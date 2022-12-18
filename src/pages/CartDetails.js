@@ -4,6 +4,7 @@ import { GameContext } from '../contexts/GameContext'
 import { Link } from "react-router-dom";
 
 
+//Cart Detail component to display the Cart/Checkout page
 
 function CartDetails() {
   const { gamesInCart, setGamesInCart } = useContext(GameContext);
@@ -17,22 +18,30 @@ function CartDetails() {
   }
 
   const decrementCartProduct = (id) => {
-    const pos = gamesInCart.indexOf(id);
-    let tempArr = [...gamesInCart];
-    tempArr.splice(pos, 1);
-    setGamesInCart(tempArr);
-    console.log(gamesInCart);
+    console.log(id);
+    const pos = gamesInCart.indexOf(id.toString());
+    console.log(pos);
+    if (pos !== -1) {
+      const newGamesInCart = gamesInCart.filter((value, index) => index !== pos);
+      console.log(newGamesInCart)
+      setGamesInCart(newGamesInCart);
+    }
   }
 
   const removeItemFromCart = (id) => {
-    const pos = gamesInCart.indexOf(id);
-    let tempArr = [...gamesInCart];
-    tempArr.splice(pos, gamesInCart.filter(function checkID(id) { return id === id }).length);
-    setGamesInCart(tempArr);
-    console.log(gamesInCart);
+    let i = 0;
+    while (i < gamesInCart.length) {
+      if (gamesInCart[i] === id.toString()) {
+        gamesInCart.splice(i, 1);
+      } else {
+        ++i;
+      }
+    }
+    setGamesInCart(gamesInCart);
   }
 
   let subTotal = 0;
+  
   gamesInCartInfo.forEach(item => {
     subTotal += item.price * item.quantity;
   })
@@ -91,7 +100,7 @@ function CartDetails() {
                 return (
                   <div className="md:flex items-center mt-14 py-8 border-t border-gray-200" key={gameInfo.id}>
                     <div className="w-1/4">
-                      <img src={gameInfo.game_image} alt className="w-full h-full object-center object-cover" />
+                      <img src={gameInfo.game_image} alt="game" className="w-full h-full object-center object-cover aspect-video rounded-xl" />
                     </div>
                     <div className="md:pl-3 md:w-3/4">
                       <div className="flex items-center justify-between w-full pt-1">
@@ -103,7 +112,7 @@ function CartDetails() {
                         </div>
                       </div>
                       <div className="flex items-center justify-between pt-5 pr-6">
-                        <div className="flex itemms-center">
+                        <div className="flex items-center">
                           <p onClick={() => removeItemFromCart(gameInfo.id)} className="text-xs leading-3 underline text-red-500 cursor-pointer">Remove</p>
                         </div>
                         <p className="text-base font-black leading-none text-white">${parseFloat(gameInfo.quantity * gameInfo.price).toFixed(2)}</p>
