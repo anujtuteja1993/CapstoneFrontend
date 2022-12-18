@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useContext } from 'react';
 import { GameContext } from '../contexts/GameContext'
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 
 //Cart Detail component to display the Cart/Checkout page
@@ -49,9 +51,19 @@ function CartDetails() {
 
   const checkOut = () => {
     if (isSignedIn) {
-      alert("Thank you for your purchase!");
+      toast("Thank you for your purchase!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+      })
     } else {
-      alert("Please sign in to complete your purchase.");
+      toast("Please sign in to checkout!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+      })
     }
   }
 
@@ -151,6 +163,7 @@ function CartDetails() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

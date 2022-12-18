@@ -5,6 +5,8 @@ import { motion } from 'framer-motion'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Login = (props) => {
 
@@ -12,7 +14,7 @@ const Login = (props) => {
     const [password, setPassword] = useState('');
     const [formErrors, setFormErrors] = useState({});
     const [formSubmitted, setFormSubmitted] = useState(false);
-    const [message, setMessage] = useState('');
+
     let navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -31,7 +33,7 @@ const Login = (props) => {
                 password: password
             })
 
-            if (response.data.success) {
+            if (response.data.success || formSubmitted === true) {
 
                 const decoded = jwt_decode(response.data.token);
                 localStorage.setItem('name', decoded.firstName + " " + decoded.lastName);
@@ -39,14 +41,15 @@ const Login = (props) => {
                 localStorage.setItem('token', response.data.token);
                 navigate('/');
                 window.location.reload();
-
-            }
+            } 
 
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.msg);
-                setMessage(error.response.data.msg);
-                console.log(message);
+                toast(error.response.data.msg, {  
+                    className: "custom-toast", 
+                    draggable: true,
+                    position: toast.POSITION.BOTTOM_CENTER });
             }
         }
     }
@@ -65,6 +68,7 @@ const Login = (props) => {
     }
 
     return (
+        <>
         <motion.div layout>
             <div className='relative w-full h-screen bg-zinc-100/20'>
                 <img src={LoginImg} alt="/" className="absolute w-full h-full object-cover mix-blend-overlay"></img>
@@ -98,6 +102,8 @@ const Login = (props) => {
                 </div>
             </div>
         </motion.div>
+        <ToastContainer />
+        </>
     )
 }
 
