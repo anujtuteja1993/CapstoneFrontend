@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Slider from '../components/Slider';
 import { StarIcon } from '@heroicons/react/20/solid';
 import { GameContext } from '../contexts/GameContext';
-
+import { motion } from 'framer-motion';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -56,6 +56,7 @@ const GameDetails = () => {
   }
 
   return (
+    <motion.div layout>
     <div className="flex flex-col">
       <div className="flex flex-row py-10">
         <div className="relative m-auto w-[85vw] lg:w-[65vw] overflow-hidden rounded-xl aspect-video">
@@ -119,7 +120,7 @@ const GameDetails = () => {
         </div>
       </div>
     </div>
-
+    </motion.div>
   )
 }
 
