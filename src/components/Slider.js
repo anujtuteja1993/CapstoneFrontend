@@ -1,19 +1,18 @@
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md'
 
+//variants for Framer Motion
 const variants = {
     initial: direction => {
         return {
             x: direction > 0 ? 1000 : -1000,
             opacity: 0,
-            // scale: 0.5,
         }
     },
     animate: {
         x: 0,
         opacity: 1,
-        // scale: 1,
-        // transition: 'ease-in',
         transition: {
             x: { type: 'spring', stiffness: 300, damping: 30 },
             opacity: { duration: 0.2 },
@@ -23,8 +22,6 @@ const variants = {
         return {
             x: direction > 0 ? -1000 : 1000,
             opacity: 0,
-            // scale: 0.5,
-            // transition: 'ease-in',
             transition: {
                 x: { type: 'spring', stiffness: 300, damping: 30 },
                 opacity: { duration: 0.2 },
@@ -33,13 +30,11 @@ const variants = {
     },
 }
 
-
+//Re-usable Slider component
 const Slider = (imagesProp) => {
     const [index, setIndex] = useState(0)
     const [direction, setDirection] = useState(0)
     const images = imagesProp.games;
-
-
 
     function nextStep() {
         setDirection(1)
@@ -74,11 +69,11 @@ const Slider = (imagesProp) => {
                     custom={direction}
                 />
             </AnimatePresence>
-            <button className='lg:p-5 sm:p-2 aspect-square rounded-full bg-[#28313B] border-none cursor-pointer text-center text-white lg:text-xl absolute top-[45%] left-[5px] opacity-20 hover:opacity-75' onClick={prevStep}>
-                ◀
+            <button className='lg:p-5 sm:p-2 aspect-square rounded-full bg-[#28313B] border-none cursor-pointer text-center text-white lg:text-xl absolute top-[45%] left-[5px] opacity-20 hover:opacity-75 outline-none' onClick={prevStep}>
+                <MdOutlineKeyboardArrowLeft size={25} />
             </button>
-            <button className='lg:p-5 sm:p-2 aspect-square rounded-full bg-[#28313B] border-none cursor-pointer text-center text-white lg:text-xl absolute top-[45%] right-[5px] opacity-20 hover:opacity-75' onClick={nextStep}>
-                ▶
+            <button className='lg:p-5 sm:p-2 aspect-square rounded-full bg-[#28313B] border-none cursor-pointer text-center text-white lg:text-xl absolute top-[45%] right-[5px] opacity-20 hover:opacity-75 outline-none' onClick={nextStep}>
+                <MdOutlineKeyboardArrowRight size={25} />
             </button>
         </>
     )
