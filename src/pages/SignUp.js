@@ -76,7 +76,6 @@ const SignUp = (props) => {
     }
 
 
-
     return (
         <>
             <motion.div layout>

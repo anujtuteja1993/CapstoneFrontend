@@ -5,9 +5,9 @@ import GameCard from '../components/GameCard';
 
 const SearchPage = () => {
 
+    // Get the search results from the location state
     const { state } = useLocation();
-    console.log(state);
-
+    
     return (
         <div className='flex flex-col'>
             <div className='flex justify-between lg:p-10 md:p-5 p-4 duration:500'>
