@@ -63,7 +63,7 @@ const Slider = (imagesProp) => {
                     initial='initial'
                     exit='exit'
                     src={images[index]}
-                    alt='slides'
+                    alt='games'
                     className='absolute top-0 left-0 w-full h-full object-cover'
                     key={images[index]}
                     custom={direction}
