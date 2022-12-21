@@ -41,15 +41,16 @@ const Login = (props) => {
                 localStorage.setItem('token', response.data.token);
                 navigate('/');
                 window.location.reload();
-            } 
+            }
 
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.msg);
-                toast(error.response.data.msg, {  
-                    className: "custom-toast", 
+                toast(error.response.data.msg, {
+                    className: "custom-toast",
                     draggable: true,
-                    position: toast.POSITION.BOTTOM_CENTER });
+                    position: toast.POSITION.BOTTOM_CENTER
+                });
             }
         }
     }
@@ -69,40 +70,40 @@ const Login = (props) => {
 
     return (
         <>
-        <motion.div layout>
-            <div className='relative w-full h-screen bg-zinc-100/20'>
-                <img src={LoginImg} alt="/" className="absolute w-full h-full object-cover mix-blend-overlay"></img>
-                <div className='flex justify-center items-center h-full'>
-                    <form onSubmit={handleSubmit} className='max-w-[400px] mx-auto w-full bg-[#2C3E50]/30 p-7 rounded-xl border border-[#e1e9f5]/20 relative'>
-                        <h2 className='font-bold text-center text-5xl text-white'>
-                            <img src={logo} alt="logo" className="w-20 h-20 inline-block"></img>
-                        </h2>
-                        <motion.div layout>
-                            <div className='flex flex-col mb-5'>
-                                <label htmlFor='email' className="text-white py-2">Email</label>
-                                <input placeholder='example@email.com' value={email} onChange={(e) => setEmail(e.target.value)} className='border relative bg-[#e1e9f5] p-2 rounded-xl' type="email" />
-                                <motion.div layout>
-                                    <p className="text-red-400 font-sans text-sm">{formErrors.email}</p>
-                                </motion.div>
-                            </div>
-                        </motion.div>
-                        <motion.div layout>
-                            <div className='flex flex-col mb-5'>
-                                <label htmlFor='password' className="text-white py-2">Password</label>
-                                <input placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} className='border relative  bg-[#e1e9f5] p-2 rounded-xl' type="password" />
-                                <motion.div layout>
-                                    <p className="text-red-400 font-sans text-sm">{formErrors.password}</p>
-                                </motion.div>
-                            </div>
-                        </motion.div>
-                        <button className='w-full py-4 mt-8 bg-[#0c2b45]/80 border border-[#e1e9f5]/20 hover:bg-[#0c2b45]/100 relative rounded-xl text-white'>Sign In</button>
-                        <p className='flex items-center mt-2 text-white py-2'><input type="checkbox" />Remember Me</p>
-                        <p onClick={() => props.onFormSwitch('sign up')} className='text-center mt-8 text-white hover:cursor-pointer'>Not a member? Create an Account</p>
-                    </form>
+            <motion.div layout>
+                <div className='relative w-full h-screen bg-zinc-100/20'>
+                    <img src={LoginImg} alt="/" className="absolute w-full h-full object-cover mix-blend-overlay"></img>
+                    <div className='flex justify-center items-center h-full'>
+                        <form onSubmit={handleSubmit} className='max-w-[400px] mx-auto w-full bg-[#2C3E50]/30 p-7 rounded-xl border border-[#e1e9f5]/20 relative'>
+                            <h2 className='font-bold text-center text-5xl text-white'>
+                                <img src={logo} alt="logo" className="w-20 h-20 inline-block"></img>
+                            </h2>
+                            <motion.div layout>
+                                <div className='flex flex-col mb-5'>
+                                    <label htmlFor='email' className="text-white py-2">Email</label>
+                                    <input placeholder='example@email.com' value={email} onChange={(e) => setEmail(e.target.value)} className='border relative bg-[#e1e9f5] p-2 rounded-xl' type="email" />
+                                    <motion.div layout>
+                                        <p className="text-red-400 font-sans text-sm">{formErrors.email}</p>
+                                    </motion.div>
+                                </div>
+                            </motion.div>
+                            <motion.div layout>
+                                <div className='flex flex-col mb-5'>
+                                    <label htmlFor='password' className="text-white py-2">Password</label>
+                                    <input placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} className='border relative  bg-[#e1e9f5] p-2 rounded-xl' type="password" />
+                                    <motion.div layout>
+                                        <p className="text-red-400 font-sans text-sm">{formErrors.password}</p>
+                                    </motion.div>
+                                </div>
+                            </motion.div>
+                            <button className='w-full py-4 mt-8 bg-[#0c2b45]/80 border border-[#e1e9f5]/20 hover:bg-[#0c2b45]/100 relative rounded-xl text-white'>Sign In</button>
+                            <p className='flex items-center mt-2 text-white py-2'><input type="checkbox" />Remember Me</p>
+                            <p onClick={() => props.onFormSwitch('sign up')} className='text-center mt-8 text-white hover:cursor-pointer'>Not a member? Create an Account</p>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </motion.div>
-        <ToastContainer />
+            </motion.div>
+            <ToastContainer />
         </>
     )
 }

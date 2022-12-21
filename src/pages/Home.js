@@ -13,7 +13,7 @@ const Home = () => {
   //URLs for the API calls
   const fetchCriticallyAcclaimedGamesURL = 'http://localhost:8000/games/getCriticallyAcclaimedGames';
   const fetchHighestUserRatedGamesURL = 'http://localhost:8000/games/getHighestUserRatedGames';
-  const fetchClassicGamesURL =  'http://localhost:8000/games/getClassicGames';
+  const fetchClassicGamesURL = 'http://localhost:8000/games/getClassicGames';
 
   //API calls in UseEffect using Promise.all
   useEffect(() => {

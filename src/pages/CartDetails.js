@@ -75,6 +75,7 @@ function CartDetails() {
       setIsSignedIn(true);
     }
 
+    //Setting the quantity of each game in the cart
     gamesInCart.forEach(element => {
       if (gameMap.has(element)) {
         gameMap.set(element, gameMap.get(element) + 1);
