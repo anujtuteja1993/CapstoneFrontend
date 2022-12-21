@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+**Pre-requisites:**  
+  
+Following are the pre-requisite applications that are required:  
+  
+**Visual Studio Code:** https://code.visualstudio.com/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  
 
-## Available Scripts
+**Node.js/NPM:** [https://docs.npmjs.com/downloading-and-installing-node-js-and-npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
-In the project directory, you can run:
+  
 
-### `npm start`
+**MySQL/Workbench:**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+-   For Mac:
 
-### `npm test`
+  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+MySQL - https://dev.mysql.com/doc/refman/5.7/en/macos-installation-pkg.html
 
-### `npm run build`
+Workbench - [https://dev.mysql.com/doc/workbench/en/wb-installing-mac.html](https://dev.mysql.com/doc/workbench/en/wb-installing-mac.html)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+-   For Windows:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+MySQL - [https://dev.mysql.com/doc/refman/5.7/en/windows-installation.html](https://dev.mysql.com/doc/refman/5.7/en/windows-installation.html)
 
-### `npm run eject`
+Workbench - [https://dev.mysql.com/doc/workbench/en/wb-installing-windows.html](https://dev.mysql.com/doc/workbench/en/wb-installing-windows.html)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Setup Instructions:**  
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**Frontend and Backend Repo Setup:**
 
-## Learn More
+-   Following are the two repos for the backend and the frontend.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Backend: [https://github.com/anujtuteja1993/CapstoneBackend.git](https://github.com/anujtuteja1993/CapstoneBackend.git)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Frontend: [https://github.com/anujtuteja1993/CapstoneFrontend.git](https://github.com/anujtuteja1993/CapstoneFrontend.git)
 
-### Code Splitting
+Either clone the repos or download them as zip.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+-   Change the directory to the git repos using the terminal and enter the following command for both the repos:
+npm install
 
-### Analyzing the Bundle Size
+-   For backend, create a .env and add the following to it if it doesn’t exist:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+PORT=8000
 
-### Making a Progressive Web App
+GAMES_API_ENDPOINT="https://api.rawg.io/api/"
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+GAMES_API_KEY="f2b65746f0874d129d3550dd301e2b74"
 
-### Advanced Configuration
+ACCESS_TOKEN_SECRET = jsfgfjguwrg8783wgbjs849h2fu3cnsvh8wyr8fhwfvi2g225
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+REFRESH_TOKEN_SECRET = 825y8i3hnfjmsbv7gwajbl7fobqrjfvbs7gbfj2q3bgh8f42
 
-### Deployment
+DB_PASSWORD=admin
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+DB_NAME=capstone_database
 
-### `npm run build` fails to minify
+DB_USER=root
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+DB_HOST=localhost
+
+DB_PORT=3306
+
+**MySQL Setup:**
+-   Open MySQL Workbench and connect to localhost.
+-   To import the data, use the ‘capstone_database.sql’ in the backend repo folder.
+-   Click on Server -> Data Import:
+-   Then select ‘Import from Self-Contained File’ and browse to the ‘capstone_database.sql’ file and select it.
+-   For the Default Target Schema, click on the button ‘..New’ and set the name as ‘capstone_database’.
+
+***You can give it any name but remember to change DB_NAME in the .env file set up in the previous steps.**
+
+-   Also, change the DB_USER and DB_PASSWORD to your MySQL Server root Username and Password.
+**Launching the App:**
+-   To launch the app, open two separate terminal windows and change the directory to CapstoneFrontend and CapstoneBackend folders.
+-   Type ‘npm start’ in the backend terminal, followed by ‘npm start’ in the frontend terminal and a browser window should automatically open and you should see the website. If it doesn’t automatically open the browser window, type in [http://localhost:3000/](http://localhost:3000/) in the browser’s address bar.# Welcome to StackEdit!
