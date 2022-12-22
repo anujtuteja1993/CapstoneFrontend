@@ -32,8 +32,6 @@ Workbench - [https://dev.mysql.com/doc/workbench/en/wb-installing-windows.html](
 
   
 
-  
-
 **Setup Instructions:**  
 
 **Frontend and Backend Repo Setup:**
@@ -55,7 +53,7 @@ PORT=8000
 
 GAMES_API_ENDPOINT="https://api.rawg.io/api/"
 
-GAMES_API_KEY="f2b65746f0874d129d3550dd301e2b74"
+GAMES_API_KEY=*Your RAWG API key*
 
 ACCESS_TOKEN_SECRET = jsfgfjguwrg8783wgbjs849h2fu3cnsvh8wyr8fhwfvi2g225
 
@@ -70,6 +68,8 @@ DB_USER=root
 DB_HOST=localhost
 
 DB_PORT=3306
+
+To get your own RAWG API Key, follow the instructions on: https://rawg.io/apidocs
 
 **MySQL Setup:**
 -   Open MySQL Workbench and connect to localhost.
